@@ -1,6 +1,8 @@
 :root {
-  --color-primary: #010101;
-  --color-secondary: #101010;
+  --color-primary: #010933;
+  --color-primary-rgb: 1, 9, 51;
+  --color-secondary: #7B86BE;
+  --color-secondary-rgb: 123, 134, 190;
   --color-page-bg: #fff;
   --color-card-bg: #fff;
   --color-card-border: #eee;
@@ -8,9 +10,10 @@
   --color-text-on-primary: #fff;
   --color-text-on-secondary: #fff;
   --color-text-disabled: #444;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
+  margin: 0;
   color: var(--color-text);
-  background-color: var(--color-page-bg);
 }
