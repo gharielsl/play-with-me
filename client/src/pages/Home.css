@@ -1,5 +1,6 @@
 .home {
     background-image: linear-gradient(to bottom, rgba(var(--color-primary-rgb), 1) 5%, rgba(var(--color-primary-rgb), 0) 95%), 
+                      linear-gradient(to top, rgba(var(--color-primary-rgb), 1) 5%, rgba(var(--color-primary-rgb), 0) 95%), 
                       linear-gradient(to right, rgba(var(--color-primary-rgb), 1) 5%, rgba(var(--color-primary-rgb), 0) 95%), 
                       linear-gradient(to left, rgba(var(--color-primary-rgb), 1) 5%, rgba(var(--color-primary-rgb), 0) 95%), 
                       url('../assets/bg.jpg');
@@ -11,6 +12,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.animated-part {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25vh;
+    opacity: 0;
+    animation: slide-in 1s ease-out forwards;
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        margin-top: 25vh;
+    }
+    to {
+        opacity: 1;
+        margin-top: 0;
+    }
 }
 
 .short-description {
@@ -47,9 +70,43 @@
     margin-left: 16px;
 }
 
+@keyframes info-wait {
+    from {
+        max-height: 0;
+        padding-top: 0;
+        margin-bottom: 0;
+    }
+    to {
+        max-height: unset;
+        padding-bottom: 64px; /* Scroll (because of translateY) */
+        margin-bottom: 64px;
+    }
+}
+
+.info {
+    width: calc(100% - 128px);
+    max-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(calc(100% + 64px));
+    background-color: var(--color-page-bg);
+    animation: info-wait 0s ease-out 1.1s forwards;
+}
+
+.about {
+    display: flex;
+}
+
 h1 {
     margin: 0;
     margin-top: 20vh;
     font-size: clamp(3rem, 5vw, 8rem);
     color: var(--color-secondary);
+}
+
+h3 {
+    margin: 0;
+    margin-top: 24px;
+    margin-bottom: 24px;
 }
