@@ -5,19 +5,26 @@ import session from 'express-session';
 import ws from 'ws';
 import lobby from './routes/lobby';
 import auth from './routes/auth';
+import { connect } from './query/connection';
 
-const app = express();
+async function setup() {
+    await connect();
 
-app.use(session({
-    secret: process.env.SESSION_SECRET as string
-}));
+    const app = express();
 
-app.use('/api/v1/lobby', lobby);
-app.use('/auth', auth);
-app.get('/test', (req, res) => {
-    res.send('ok')
-})
+    app.use(session({
+        secret: process.env.SESSION_SECRET as string
+    }));
 
-const server = app.listen(process.env.APP_PORT);
+    app.use('/api/v1/lobby', lobby);
+    app.use('/auth', auth);
+    app.get('/test', (req, res) => {
+        res.send('ok')
+    })
 
-const wss = new ws.Server({ server });
+    const server = app.listen(process.env.APP_PORT);
+
+    const wss = new ws.Server({ server });
+}
+
+setup();
