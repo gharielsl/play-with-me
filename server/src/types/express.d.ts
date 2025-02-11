@@ -17,6 +17,7 @@ declare module 'express-serve-static-core' {
         }[];
         provider: string;
         playWithMeUser: PlayWithMeUser;
+        accessToken: string;
     }
 
     interface Request {

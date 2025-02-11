@@ -1,9 +1,12 @@
 import express from 'express';
 import passport from 'passport';
+import uuid from 'uuid';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { createOrUpdateUser, getUserById } from '../query/user';
 
 const route = express();
+
+const sessions: { [token: string]: Express.User } = { };
 
 passport.use(
     new GoogleStrategy(
@@ -20,7 +23,6 @@ passport.use(
 
 passport.serializeUser(async (user: any, done) => {
     let playWithMeUser: PlayWithMeUser | null = await getUserById(user.id);
-    console.log(playWithMeUser);
     if (!playWithMeUser) {
         playWithMeUser = {
             id: user.id,
@@ -32,6 +34,8 @@ passport.serializeUser(async (user: any, done) => {
         await createOrUpdateUser(playWithMeUser);
     }
     user.playWithMeUser = playWithMeUser;
+    user.accessToken = uuid.v4();
+    sessions[user.accessToken] = user;
     done(null, user);
 });
 
@@ -62,7 +66,11 @@ route.get(
     passport.authenticate('google', { failureRedirect: '/' }),
     (req, res) => {
         res.redirect('/');
+        res.redirect(process.env.CLIENT_ROOT + '?accessToken=' + req.user.accessToken);
     }
 );
 
-export default route;
+export {
+    route,
+    sessions
+};

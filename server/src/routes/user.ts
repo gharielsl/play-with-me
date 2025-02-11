@@ -1,7 +1,20 @@
 import express from 'express';
 import { deleteUser, getUserById } from '../query/user';
+import { getLobbiesByOwner } from '../query/lobby';
 
 const route = express();
+
+route.get('/info', async (req, res) => {
+    if (!req.user) {
+        res.status(401).end();
+        return;
+    }
+    res.send(req.user);
+});
+
+route.get('/:id/lobbies', async (req, res) => {
+    res.send(await getLobbiesByOwner(req.params.id));
+});
 
 route.get('/:id', async (req, res) => {
     const user = await getUserById(req.params.id);
@@ -28,7 +41,7 @@ route.delete('/:id', async (req, res) => {
         return;
     }
     if (req.user?.id !== user.id) {
-        res.status(401).end();
+        res.status(403).end();
         return;
     }
     await deleteUser(user.id);
