@@ -1,6 +1,34 @@
 import { Link } from "react-router-dom";
 import "./Home.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+// import Particles, { initParticlesEngine } from "@tsparticles/react";
+// import { Engine } from "@tsparticles/engine";
+
+// function Background() {
+//     const [init, setInit] = useState(false);
+
+//     useEffect(() => {
+//         initParticlesEngine(async (engine) => {
+//             loadAll(engine);
+//         }).then(() => {
+//             setInit(true);
+//         });
+//     }, []);
+
+//     return init && (
+//         <Particles
+//             options={{
+//                 particles: {
+//                     number: { value: 20 },
+//                     shape: { type: "circle" },
+//                     opacity: { value: 0.5 },
+//                     size: { value: { min: 2, max: 10 } },
+//                     move: { enable: true, speed: 2, direction: "none", random: true },
+//                 },
+//             }}
+//         />
+//     );
+// }
 
 function scrollToElement(el: string) {
     if (el) {
@@ -37,6 +65,7 @@ function Home() {
 
     return (
         <div className="home">
+            {/* <Background /> */}
             <div className="animated-part">
                 <h1>Play With Me</h1>
                 <div className="short-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
@@ -52,13 +81,20 @@ function Home() {
                 </div>
             </div>
             <div className="info" id="learn_more">
-                <h2>Play With Me</h2>
+                <h2 style={{ color: 'var(--color-primary)' }}>Play With Me</h2>
                 <div className="about">
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt corporis explicabo quisquam iusto esse. Libero voluptate deleniti recusandae consequuntur officiis inventore porro error officia corrupti eveniet, sit architecto minus facilis.</div>
+                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+                    <div>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt corporis explicabo quisquam iusto esse. Libero voluptate deleniti recusandae consequuntur officiis inventore porro error officia corrupti eveniet, sit architecto minus facilis.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt corporis explicabo quisquam iusto esse. Libero voluptate deleniti recusandae consequuntur officiis inventore porro error officia corrupti eveniet, sit architecto minus facilis.
+                        <br />
+                        <br />
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. A assumenda illum laboriosam minima possimus? Placeat architecto accusamus libero beatae veritatis quas dolores officia neque error, molestiae doloribus labore aliquam aliquid?
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus ab eum in exercitationem necessitatibus sit libero, accusantium sint facere porro veritatis quidem magni consectetur autem voluptatem corrupti inventore earum aut!
+                    </div>
                 </div>
                 <div className="features">
-                    <h2>
+                    <h2 style={{ color: 'var(--color-secondary)' }}>
                         Let's see how it works
                     </h2>
                     <div ref={stepRowRef} className="step-row">
