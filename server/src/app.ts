@@ -2,22 +2,33 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import session from 'express-session';
+import cors from 'cors';
 import ws from 'ws';
 import lobby from './routes/lobby';
-import auth from './routes/auth';
+import user from './routes/user';
+import { route as auth } from './routes/auth';
+import userMiddleware from './middleware/user-middleware';
+import { connect } from './query/connection';
 
-const app = express();
+async function setup() {
+    await connect();
 
-app.use(session({
-    secret: process.env.SESSION_SECRET as string
-}));
+    const app = express();
 
-app.use('/api/v1/lobby', lobby);
-app.use('/auth', auth);
-app.get('/test', (req, res) => {
-    res.send('ok')
-})
+    app.use(cors());
 
-const server = app.listen(process.env.APP_PORT);
+    app.use(session({
+        secret: process.env.SESSION_SECRET as string
+    }));
 
-const wss = new ws.Server({ server });
+    app.use('/auth', auth);
+    app.use(userMiddleware);
+    app.use('/api/v1/lobby', lobby);
+    app.use('/api/v1/user', user);
+
+    const server = app.listen(process.env.APP_PORT);
+
+    const wss = new ws.Server({ server });
+}
+
+setup();
