@@ -1,10 +1,17 @@
 import { getConnection } from "./connection";
 
-async function getLobbyById(id: string): Promise<Lobby | null> {
+async function getLobbyById(id: string) {
     const { database } = getConnection();
     const collection = database.collection('Lobbies');
     const lobby = await collection.findOne({ id });
     return lobby as unknown as Lobby || null;
+}
+
+async function getLobbiesByOwner(owner: string) {
+    const { database } = getConnection();
+    const collection = database.collection('Lobbies');
+    const lobbies = await collection.find({ owner }).toArray();
+    return lobbies as unknown as Lobby[];
 }
 
 async function createOrUpdateLobby(lobby: Lobby) {
@@ -29,6 +36,7 @@ async function deleteLobby(id: string) {
 
 export {
     getLobbyById,
+    getLobbiesByOwner,
     createOrUpdateLobby,
     deleteLobby
 };

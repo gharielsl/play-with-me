@@ -19,7 +19,8 @@ passport.use(
 );
 
 passport.serializeUser(async (user: any, done) => {
-    let playWithMeUser: User | null = await getUserById(user.id);
+    let playWithMeUser: PlayWithMeUser | null = await getUserById(user.id);
+    console.log(playWithMeUser);
     if (!playWithMeUser) {
         playWithMeUser = {
             id: user.id,
@@ -31,18 +32,30 @@ passport.serializeUser(async (user: any, done) => {
         await createOrUpdateUser(playWithMeUser);
     }
     user.playWithMeUser = playWithMeUser;
-    console.log(user);
     done(null, user);
 });
 
 passport.deserializeUser((user, done) => {
-    done(null, user as User);
+    done(null, user as PlayWithMeUser);
 });
 
 route.use(passport.initialize());
 route.use(passport.session());
 
 route.get('/login', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+route.get('/logout', (req, res) => {
+    if (!req.isAuthenticated()) {
+        res.end();
+        return;
+    }
+    req.logout((err) => {
+        if (err) {
+            return res.status(500).end();
+        }
+        res.end();
+    });
+});
 
 route.get(
     '/login/callback',

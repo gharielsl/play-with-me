@@ -1,4 +1,4 @@
-interface User {
+interface PlayWithMeUser {
     id: string;
     displayName: string;
     isGuest: boolean;

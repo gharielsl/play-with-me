@@ -29,7 +29,10 @@ route.post(
         if (!existing) {
             id = uuid.v4();
         } else {
-            // validate ownership
+            if (req.user?.id !== existing.owner) {
+                res.status(401).end();
+                return;
+            }
         }
         const payload = {
             id,
@@ -54,7 +57,10 @@ route.delete('/:id', async (req, res) => {
         res.status(404).end();
         return;
     }
-    // validate ownership
+    if (req.user?.id !== lobby.owner) {
+        res.status(401).end();
+        return;
+    }
     const result = await deleteLobby(lobby.id);
     res.status(result ? 200 : 500).end();
 });
