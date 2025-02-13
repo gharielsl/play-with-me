@@ -5,8 +5,6 @@ import './NavBar.css';
 import { useUser } from '../context/UserContext';
 import urlJoin from 'url-join';
 
-const pages = [['Home', '/'], ['Play', '/lobbies']];
-
 function NavBar() {
     const [navOpen, setNavOpen] = React.useState(false);
     const [userMenuOpen, setUserMenuOpen] = React.useState(false);
@@ -14,6 +12,12 @@ function NavBar() {
     const location = useLocation();
     const navigate = useNavigate();
     const { user } = useUser();
+
+    let pages = [['Home', '/'], ['Play', '/lobbies']];
+
+    if (location.pathname === '/profile') {
+        pages.push(['Profile', '/profile']);
+    }
 
     React.useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -34,6 +38,11 @@ function NavBar() {
             Cookie.remove('accessToken');
             window.location.href = urlJoin(import.meta.env.VITE_API_ROOT, '/auth/logout');
         }
+    }
+
+    function profile() {
+        setUserMenuOpen(false);
+        navigate('/profile');
     }
 
     return (
@@ -68,7 +77,7 @@ function NavBar() {
                         </div>
                     </button>
                     <div className={`dropdown ${userMenuOpen && 'open'}`}>
-                        <div className="dropdown-item" onClick={() => setUserMenuOpen(false)}>{user?.displayName}</div>
+                        <div className="dropdown-item" onClick={profile}>{user?.displayName}</div>
                         <div className="dropdown-item" onClick={logInOut}>{user?.isGuest ? 'Log in' : 'Log out'}</div>
                     </div>
                 </div>

@@ -1,14 +1,14 @@
 import redditSvg from '../assets/reddit.svg';
 import googleSvg from '../assets/google.svg';
 import './Login.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import urlJoin from 'url-join';
 
 export default function Login() {
     const navigate = useNavigate();
 
     function login(provider: string) {
-        navigate(urlJoin(import.meta.env.VITE_API_ROOT, '/auth/login?provider=' + provider));
+        location.href = urlJoin(import.meta.env.VITE_API_ROOT, '/auth/login?provider=' + provider);
     }
 
     return (
