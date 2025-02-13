@@ -1,6 +1,36 @@
+import { useEffect, useState } from 'react';
+import Cookie from 'js-cookie';
 import './Lobbies.css';
+import urlJoin from 'url-join';
+import { useUser } from '../context/UserContext';
 
 function Lobbies() {
+    const placeholderLobbies = Array(4).fill(null);
+    const [userLobbies, setUserLobbies] = useState<Lobby[]>(placeholderLobbies);
+    const [lobbies, setLobbies] = useState<Lobby[]>(placeholderLobbies);
+    const { user } = useUser();
+
+    useEffect(() => {
+        if (user && !user.isGuest) {
+            fetch(urlJoin(import.meta.env.VITE_API_ROOT, `/api/v1/user/${user?.id}/lobbies`), {
+                headers: {
+                    Authorization: Cookie.get('accessToken') || ''
+                }
+            }).then(async (resp) => {
+                // setUserLobbies(await resp.json());
+            });
+        } else {
+            // setUserLobbies([]);
+        }
+        fetch(urlJoin(import.meta.env.VITE_API_ROOT, '/api/v1/lobby'), {
+            headers: {
+                Authorization: Cookie.get('accessToken') || ''
+            }
+        }).then(async (resp) => {
+            // setLobbies(await resp.json());
+        });
+    }, [user]);
+
     return (
         <div className="lobbies-container">
             <div className="top-bar">
@@ -13,25 +43,33 @@ function Lobbies() {
 
             <h1 className="title">Your lobbies</h1>
             <div className="lobby-grid">
-                {Array(4).fill(0).map((_, i) => (
-                    <LobbyCard key={i} creator="You" />
-                ))}
+                {userLobbies.length > 0 ? (
+                    userLobbies.map((lobby, i) => (
+                        <LobbyCard key={i} index={i} creator="You" />
+                    ))
+                ) : (
+                    <div>You don't have any lobbies, <a>create a lobby.</a></div>
+                )}
             </div>
 
             <h1 className="title">Popular</h1>
             <div className="lobby-grid">
-                {Array(4).fill(0).map((_, i) => (
-                    <LobbyCard key={i} creator="OtherUser" />
-                ))}
+                {lobbies.length > 0 ? (
+                    lobbies.map((lobby, i) => (
+                        <LobbyCard key={i} index={userLobbies.length + i} creator="You" />
+                    ))
+                ) : (
+                    <div>No lobbies exist, that's odd.</div>
+                )}
             </div>
         </div>
     );
 }
 
-function LobbyCard({ creator }: { creator: string }) {
+function LobbyCard({ creator, index }: { creator: string, index: number }) {
     return (
         <div className="lobby-card">
-            <img src="https://images.squarespace-cdn.com/content/v1/607f89e638219e13eee71b1e/1684821560422-SD5V37BAG28BURTLIXUQ/michael-sum-LEpfefQf4rU-unsplash.jpg" alt="Lobby" className="lobby-image" />
+            <img src={'https://picsum.photos/512?r=' + index} alt="Lobby" className="lobby-image" />
             <div className="lobby-info">
                 <h2 className="lobby-title">Lobby Name</h2>
                 <div className="lobby-meta">
@@ -39,7 +77,7 @@ function LobbyCard({ creator }: { creator: string }) {
                     <span className="creator">{creator}</span>
                 </div>
                 <div className="lobby-actions-container">
-                <button className="lobby-play-btn">Play</button>
+                    <button className="lobby-play-btn">Play</button>
                     <div className="lobby-actions">
                         <i className="bi bi-pencil-fill lobby-edit-btn"></i>
                         <i className="bi bi-trash-fill lobby-delete-btn"></i>

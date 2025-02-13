@@ -100,7 +100,7 @@ function Home() {
                     <div ref={stepRowRef} className="step-row">
                         <div className="step-row-half">
                             <div ref={steps[0]} className="step s1">
-                                <img src="https://avatars.githubusercontent.com/u/104318152?s=400&u=9b775b3e0aea34bf3585af884a3e3033524e44db&v=4">
+                                <img src="https://picsum.photos/512?r=1">
                                 </img>
                                 <div>
                                     <h3>
@@ -111,7 +111,7 @@ function Home() {
                                 </div>
                             </div>
                             <div ref={steps[1]} className="step s2">
-                                <img src="https://images.squarespace-cdn.com/content/v1/607f89e638219e13eee71b1e/1684821560422-SD5V37BAG28BURTLIXUQ/michael-sum-LEpfefQf4rU-unsplash.jpg">
+                                <img src="https://picsum.photos/512?r=2">
                                 </img>
                                 <div>
                                     <h3>
@@ -124,7 +124,7 @@ function Home() {
                         </div>
                         <div className="step-row-half">
                             <div ref={steps[2]} className="step s3">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK5CqiQQDLVEVd_mEtfKpqF8MTZj0SqiEEWg&s">
+                                <img src="https://picsum.photos/512?r=3">
                                 </img>
                                 <div>
                                     <h3>
@@ -135,7 +135,7 @@ function Home() {
                                 </div>
                             </div>
                             <div ref={steps[3]} className="step s4">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDCsqRYLAFDdL4Ix_AHai7kNVyoPV9Ssv1xg&s">
+                                <img src="https://picsum.photos/512?r=4">
                                 </img>
                                 <div>
                                     <h3>
