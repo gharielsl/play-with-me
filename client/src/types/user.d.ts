@@ -4,4 +4,5 @@ interface PlayWithMeUser {
     isGuest: boolean;
     email: string;
     profileImg: string;
+    bio: string;
 }

@@ -16,6 +16,15 @@
     border-radius: 8px;
 }
 
+.profile-form {
+    width: 100%;
+    display: flex;
+    margin-bottom: 12px;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
 .profile-image {
     position: relative;
     display: inline-block;
@@ -78,4 +87,28 @@
 .settings .save.discard {
     margin-left: 8px;
     background-color: var(--color-card-border);
+}
+
+.counter-profile {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 16px;
+    color: var(--color-card-border);
+    display: flex;
+    align-items: center;
+}
+
+.counter-profile.bottom {
+    top: unset;
+    bottom: 24px;
+}
+
+.input-error {
+    position: absolute;
+    bottom: -18px;
+    right: 0;
+    color: var(--color-error);
+    display: flex;
+    align-items: center;
 }

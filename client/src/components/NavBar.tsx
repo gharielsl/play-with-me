@@ -72,7 +72,7 @@ function NavBar() {
                             {
                                 user?.profileImg ? 
                                     <img src={user?.profileImg} alt="profile"></img> : 
-                                    <i className="bi bi-person-fill" style={{ }}></i>
+                                    <i className="bi bi-person-fill"></i>
                             }
                         </div>
                     </button>
