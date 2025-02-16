@@ -2,10 +2,11 @@ import { CircularProgress, styled, TextField } from "@mui/material";
 import "./Profile.css";
 import { useUser } from "../context/UserContext";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { MouseEvent, useEffect, useRef, useState } from "react";
 import Cookie from 'js-cookie';
 import Success from "../components/Success";
 import urlJoin from "url-join";
+import { resizeImage } from "../util/image-util";
 
 function textFieldStyle(error: boolean) {
     const border = error ? 'var(--color-error)' : 'var(--color-card-border)';
@@ -90,7 +91,7 @@ export default function Profile() {
         if (resp.ok) {
             setState('saved');
             if (user) {
-                login({ ...user, profileImg: image });
+                login({ ...user, profileImg: image, bio, displayName });
             }
             setTimeout(() => setState('none'), 1000);
         } else {
@@ -107,9 +108,9 @@ export default function Profile() {
             const file = input.files?.[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = (e) => {
-                    if (e.target?.result) {
-                        setImage(e.target.result as string);
+                reader.onload = async (ev) => {
+                    if (ev.target?.result) {
+                        setImage(await resizeImage(ev.target.result as string, 512));
                         setImgState('confirm');
                     }
                 };
@@ -127,7 +128,8 @@ export default function Profile() {
         setImgState('edit');
     }
 
-    function cancelImgUpdate() {
+    function cancelImgUpdate(ev: MouseEvent) {
+        ev.stopPropagation();
         setImage(user?.profileImg || '');
         setImgState('none');
     }
@@ -189,8 +191,8 @@ export default function Profile() {
                             }}
                         />
                         <div className="counter-profile">{displayName.length} / 60</div>
+                        {displayNameError && <div className="input-error">{displayNameError}</div>}
                     </div>
-                    {displayNameError && <div className="input-error">{displayNameError}</div>}
 
                 </div>
                 <TextField
@@ -236,7 +238,7 @@ export default function Profile() {
                             }[state]
                         }
                     </div>
-                    <div onClick={exit} className="save discard">Discard</div>
+                    <div onClick={exit} className="save discard">Cancel</div>
                 </div>
             </div>
         </div>
