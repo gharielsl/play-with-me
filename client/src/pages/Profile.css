@@ -1,7 +1,7 @@
 .profile-page {
     height: 100vh;
     width: 100%;
-    background-color: var(--color-body-bg);
+    background-color: var(--color-page-bg);
     display: flex;
     justify-content: center;
 }
@@ -21,7 +21,7 @@
     display: flex;
     margin-bottom: 12px;
     justify-content: space-between;
-    align-items: center;
+    /* align-items: center; */
     position: relative;
 }
 
@@ -30,6 +30,13 @@
     display: inline-block;
     width: 64px;
     height: 64px;
+    cursor: pointer;
+}
+
+.profile-image.anim {
+    width: 128px;
+    height: 128px;
+    animation: image-show 0.3s ease-in-out forwards;
 }
 
 .profile-image img {
@@ -47,21 +54,22 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    transform: translate(2px, -3px);
-    background: radial-gradient(at bottom right, var(--color-card-border) 0%, transparent 60%);
+    transform: translateX(2px);
+    background: radial-gradient(at bottom right, var(--color-secondary) 0%, transparent 60%);
     pointer-events: none;
 }
 
 .profile-image .edit {
     position: absolute;
+    z-index: 1;
     width: 32px;
     height: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--color-card-border);
+    background-color: var(--color-secondary);
     border-radius: 50%;
-    color: var(--color-text-on-primary);
+    color: var(--color-text-on-secondary);
     bottom: -8px;
     right: -8px;
 }
@@ -91,7 +99,7 @@
 
 .counter-profile {
     position: absolute;
-    top: 0;
+    top: 6px;
     bottom: 0;
     right: 16px;
     color: var(--color-card-border);
@@ -111,4 +119,122 @@
     color: var(--color-error);
     display: flex;
     align-items: center;
+}
+
+.profile-name-container {
+    height: 64px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.profile-img-open {
+    position: relative;
+    width: 128px;
+    height: 128px;
+    border: 1px var(--color-card-border) solid;
+    background-color: var(--color-page-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.profile-img-open.anim {
+    width: 64px;
+    height: 64px;
+    animation: image-edit 0.3s ease-in-out forwards;
+}
+
+.profile-img-drag {
+    width: calc(100% - 32px);
+    height: calc(100% - 32px);
+    border: 4px var(--color-card-border) dashed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-card-border);
+    font-size: 48px;
+    cursor: pointer;
+}
+
+.profile-img-open .cancel {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    z-index: 1;
+    cursor: pointer;
+    border-radius: 12px;
+    background-color: var(--color-error);
+    color: var(--color-text-on-secondary);
+    top: -12px;
+    right: -12px;
+}
+
+.profile-img-open .cancel i {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 21px;
+    transform: translate(0.1px, 0.5px);
+}
+
+.profile-img-open .cancel:hover {
+    opacity: 0.5;
+    color: var(--color-primary);
+}
+
+.profile-confirm {
+    width: 128px;
+    height: 128px;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.profile-confirm img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.profile-confirm-btn {
+    text-align: center;
+    color: white;
+    margin-left: 8px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.profile-confirm-btn:hover {
+    color: var(--color-secondary);
+}
+
+@keyframes image-edit {
+    from {
+        width: 64px;
+        height: 64px;
+    }
+    to {
+        width: 128px;
+        height: 128px;
+    }
+}
+
+@keyframes image-show {
+    from {
+        width: 128px;
+        height: 128px;
+    }
+    to {
+        width: 64px;
+        height: 64px;
+    }
 }
