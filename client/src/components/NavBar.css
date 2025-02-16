@@ -80,13 +80,25 @@
 .avatar {
     width: 40px;
     height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
     border-radius: 50%;
     background-color: var(--color-secondary);
+    color: var(--color-text-on-secondary);
+    font-size: 24px;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
 }
 
 .dropdown {
     display: none;
     position: absolute;
+    z-index: 2;
     right: 0;
     top: 50px;
     background: white;
@@ -119,6 +131,7 @@
         display: none;
         flex-direction: column;
         position: absolute;
+        z-index: 2;
         top: 64px;
         left: 0;
         width: 100%;
@@ -128,5 +141,13 @@
 
     .nav-links.open {
         display: flex;
+    }
+
+    .link.active::after {
+        bottom: 0;
+        left: 2px;
+        width: 2px;
+        height: 100%;
+        background-color: var(--color-secondary);
     }
 }

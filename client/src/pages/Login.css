@@ -1,0 +1,105 @@
+.login-page {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.login-page .providers {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-page .right {
+    flex: 3;
+    background-image: url('../assets/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.providers .divider {
+    width: calc(70% + 2.4rem);
+    display: flex;
+    margin-bottom: 8px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.divider .side {
+    flex: 1;
+    height: 1px;
+    background-color: var(--color-card-border);
+}
+
+.divider .center {
+    color: var(--color-card-border);
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.provider {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    border: 1px var(--color-card-border) solid;
+    margin-bottom: 8px;
+    font-size: large;
+    font-weight: bold;
+    color: #353575;
+}
+
+.provider.cancel {
+    justify-content: center;
+    color: var(--color-text);
+}
+
+.provider.cancel:hover {
+    color: var(--color-text-disabled);
+}
+
+.provider:hover {
+    color: var(--color-secondary);
+}
+
+.provider img {
+    height: 32px;
+}
+
+@media screen and (max-width: 1600px) {
+    .login-page .providers {
+        flex: 1;
+    }
+    
+    .login-page .right {
+        flex: 2;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .login-page .right {
+        flex: 1;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .login-page {
+        flex-direction: column;
+    }
+
+    .login-page .providers {
+        flex: 3;
+    }
+    
+    .login-page .right {
+        flex: 1;
+    }
+}

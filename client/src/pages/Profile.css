@@ -1,0 +1,240 @@
+.profile-page {
+    height: 100vh;
+    width: 100%;
+    background-color: var(--color-page-bg);
+    display: flex;
+    justify-content: center;
+}
+
+.profile-page .settings {
+    width: 1024px;
+    background-color: var(--color-card-bg);
+    margin: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+}
+
+.profile-form {
+    width: 100%;
+    display: flex;
+    margin-bottom: 12px;
+    justify-content: space-between;
+    /* align-items: center; */
+    position: relative;
+}
+
+.profile-image {
+    position: relative;
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+}
+
+.profile-image.anim {
+    width: 128px;
+    height: 128px;
+    animation: image-show 0.3s ease-in-out forwards;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.profile-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transform: translateX(2px);
+    background: radial-gradient(at bottom right, var(--color-secondary) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.profile-image .edit {
+    position: absolute;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-secondary);
+    border-radius: 50%;
+    color: var(--color-text-on-secondary);
+    bottom: -8px;
+    right: -8px;
+}
+
+.profile-image .edit:hover {
+    color: var(--color-primary);
+    opacity: 0.7;
+}
+
+.settings .save {
+    width: 128px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--color-text-on-secondary);
+    background-color: var(--color-secondary);
+    border-radius: 8px;
+}
+
+.settings .save.discard {
+    margin-left: 8px;
+    background-color: var(--color-card-border);
+}
+
+.counter-profile {
+    position: absolute;
+    top: 6px;
+    bottom: 0;
+    right: 16px;
+    color: var(--color-card-border);
+    display: flex;
+    align-items: center;
+}
+
+.counter-profile.bottom {
+    top: unset;
+    bottom: 24px;
+}
+
+.input-error {
+    position: absolute;
+    bottom: -18px;
+    right: 0;
+    color: var(--color-error);
+    display: flex;
+    align-items: center;
+}
+
+.profile-name-container {
+    height: 64px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.profile-img-open {
+    position: relative;
+    width: 128px;
+    height: 128px;
+    border: 1px var(--color-card-border) solid;
+    background-color: var(--color-page-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.profile-img-open.anim {
+    width: 64px;
+    height: 64px;
+    animation: image-edit 0.3s ease-in-out forwards;
+}
+
+.profile-img-drag {
+    width: calc(100% - 32px);
+    height: calc(100% - 32px);
+    border: 4px var(--color-card-border) dashed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-card-border);
+    font-size: 48px;
+    cursor: pointer;
+}
+
+.profile-img-open .cancel {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    z-index: 1;
+    cursor: pointer;
+    border-radius: 12px;
+    background-color: var(--color-error);
+    color: var(--color-text-on-secondary);
+    top: -12px;
+    right: -12px;
+}
+
+.profile-img-open .cancel i {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 21px;
+    transform: translate(0.1px, 0.5px);
+}
+
+.profile-img-open .cancel:hover {
+    opacity: 0.5;
+    color: var(--color-primary);
+}
+
+.profile-confirm {
+    width: 128px;
+    height: 128px;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.profile-confirm img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.profile-confirm-btn {
+    text-align: center;
+    color: white;
+    margin-left: 8px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.profile-confirm-btn:hover {
+    color: var(--color-secondary);
+}
+
+@keyframes image-edit {
+    from {
+        width: 64px;
+        height: 64px;
+    }
+    to {
+        width: 128px;
+        height: 128px;
+    }
+}
+
+@keyframes image-show {
+    from {
+        width: 128px;
+        height: 128px;
+    }
+    to {
+        width: 64px;
+        height: 64px;
+    }
+}

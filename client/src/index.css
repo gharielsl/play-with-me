@@ -9,7 +9,8 @@
   --color-text: #000;
   --color-text-on-primary: #fff;
   --color-text-on-secondary: #fff;
-  --color-text-disabled: #444;
+  --color-text-disabled: #a5a5a5;
+  --color-error: red;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 

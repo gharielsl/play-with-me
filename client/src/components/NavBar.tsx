@@ -1,15 +1,23 @@
 import * as React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Cookie from 'js-cookie';
 import './NavBar.css';
-
-const pages = [['Home', '/'], ['Play', '/lobbies']];
-const settings = ['Account', 'Logout'];
+import { useUser } from '../context/UserContext';
+import urlJoin from 'url-join';
 
 function NavBar() {
     const [navOpen, setNavOpen] = React.useState(false);
     const [userMenuOpen, setUserMenuOpen] = React.useState(false);
     const userMenuRef = React.useRef<HTMLDivElement>(null);
     const location = useLocation();
+    const navigate = useNavigate();
+    const { user } = useUser();
+
+    let pages = [['Home', '/'], ['Play', '/lobbies']];
+
+    if (location.pathname === '/profile') {
+        pages.push(['Profile', '/profile']);
+    }
 
     React.useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -23,6 +31,20 @@ function NavBar() {
         };
     }, []);
 
+    function logInOut() {
+        if (user?.isGuest) {
+            navigate('/login');
+        } else {
+            Cookie.remove('accessToken');
+            window.location.href = urlJoin(import.meta.env.VITE_API_ROOT, '/auth/logout');
+        }
+    }
+
+    function profile() {
+        setUserMenuOpen(false);
+        navigate('/profile');
+    }
+
     return (
         <nav className="navbar">
             <div className="container">
@@ -33,10 +55,10 @@ function NavBar() {
                     </button>
                     <div className={`nav-links ${navOpen && 'open'}`}>
                         {pages.map(page => (
-                            <Link 
-                                key={page[0]} 
-                                to={page[1]} 
-                                onClick={() => setNavOpen(false)} 
+                            <Link
+                                key={page[0]}
+                                to={page[1]}
+                                onClick={() => setNavOpen(false)}
                                 className={`link ${location.pathname === page[1] ? 'active' : ''}`}
                             >
                                 {page[0]}
@@ -46,12 +68,17 @@ function NavBar() {
                 </div>
                 <div className="user-menu" ref={userMenuRef}>
                     <button className="avatar-button" onClick={() => setUserMenuOpen(!userMenuOpen)}>
-                        <div className="avatar"></div>
+                        <div className="avatar">
+                            {
+                                user?.profileImg ? 
+                                    <img src={user?.profileImg} alt="profile"></img> : 
+                                    <i className="bi bi-person-fill"></i>
+                            }
+                        </div>
                     </button>
                     <div className={`dropdown ${userMenuOpen && 'open'}`}>
-                        {settings.map(setting => (
-                            <div key={setting} className="dropdown-item" onClick={() => setUserMenuOpen(false)}>{setting}</div>
-                        ))}
+                        <div className="dropdown-item" onClick={profile}>{user?.displayName}</div>
+                        <div className="dropdown-item" onClick={logInOut}>{user?.isGuest ? 'Log in' : 'Log out'}</div>
                     </div>
                 </div>
             </div>
